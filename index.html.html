@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free Image Resizer & Reducer - Compress Images in KB Online</title>
+    <meta name="description" content="The ultimate free image reducer and resizer. Photo ka size kam karein. Compress images in KB, resize dimensions, and rotate pictures online securely.">
+    <meta name="keywords" content="image reducer, image resizer, reduce image size in kb, photo ka size kam kare, reducir tamaño de imagen, réduire la taille de l'image, Bildgröße verkleinern, compress image, resize image online">
+    
+    <!-- Favicon (Browser Tab Logo) -->
+    <link rel="icon" type="image/png" href="logo.png">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* Modern SaaS Professional Styling */
+        body { background-color: #f8fafc; /* Slate-50 */ }
+        .drag-over { background-color: #e0e7ff; border-color: #4f46e5; } /* Indigo-100 & Indigo-600 */
+        .tab-active { border-bottom: 3px solid #4f46e5; color: #0f172a; font-weight: 700; }
+        .view-section { display: none; }
+        .view-active { display: block; }
+        
+        /* Custom Input Range Styling */
+        input[type=range] {
+            accent-color: #4f46e5; /* Indigo-600 */
+        }
+
+        /* AdSense Placeholder */
+        .adsbygoogle-placeholder {
+            background-color: #ffffff;
+            border: 1px dashed #cbd5e1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #94a3b8;
+            font-size: 0.875rem;
+            margin: 1rem auto;
+            text-align: center;
+            border-radius: 8px;
+        }
+
+        /* Sticky Bottom Ad Animation */
+        @keyframes slideUp {
+            from { transform: translateY(100%); }
+            to { transform: translateY(0); }
+        }
+        .sticky-ad-container {
+            animation: slideUp 0.5s ease-out forwards;
+        }
+    </style>
+</head>
+<body class="text-slate-800 font-sans min-h-screen flex flex-col pb-24">
+
+    <!-- Navigation -->
+    <nav class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4 flex justify-between items-center py-4">
+            <!-- Brand Logo & Name -->
+            <div class="flex items-center gap-3 cursor-pointer" onclick="switchTab('tool')">
+                <img src="logo.png" alt="Logo" class="w-9 h-9 object-contain" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <!-- Fallback icon if logo.png is missing -->
+                <i class="fa-solid fa-circle-nodes text-indigo-600 text-3xl" style="display: none;"></i>
+                <span class="text-2xl font-extrabold text-slate-900 tracking-tight">ImageReducers</span>
+            </div>
+            
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex space-x-8 items-center">
+                <button class="nav-btn tab-active pb-1 text-base font-semibold" onclick="switchTab('tool')">Tool</button>
+                <button class="nav-btn text-slate-600 pb-1 text-base font-semibold transition-colors" onclick="switchTab('about')">About Us</button>
+                <button class="nav-btn text-slate-600 pb-1 text-base font-semibold transition-colors" onclick="switchTab('contact')">Contact</button>
+                <a href="https://blog.imagereducers.com" target="_blank" class="text-slate-600 hover:text-indigo-600 font-semibold text-base transition-colors">Blog <i class="fa-solid fa-arrow-up-right-from-square text-xs ml-1"></i></a>
+            </div>
+            
+            <!-- Mobile Menu Toggle -->
+            <button class="md:hidden text-slate-600 focus:outline-none" onclick="document.getElementById('mobileMenu').classList.toggle('hidden')">
+                <i class="fa-solid fa-bars text-2xl"></i>
+            </button>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="hidden md:hidden bg-white border-t border-slate-100 flex flex-col px-4 py-2 space-y-2 pb-4 shadow-md absolute w-full z-40">
+            <button class="text-left py-3 border-b border-slate-50 text-indigo-600 font-bold nav-btn-mobile" onclick="switchTab('tool'); this.parentElement.classList.add('hidden')">Tool</button>
+            <button class="text-left py-3 border-b border-slate-50 text-slate-600 font-semibold nav-btn-mobile" onclick="switchTab('about'); this.parentElement.classList.add('hidden')">About Us</button>
+            <button class="text-left py-3 border-b border-slate-50 text-slate-600 font-semibold nav-btn-mobile" onclick="switchTab('contact'); this.parentElement.classList.add('hidden')">Contact Us</button>
+            <a href="https://blog.imagereducers.com" target="_blank" class="block py-3 text-slate-600 font-semibold">Blog <i class="fa-solid fa-arrow-up-right-from-square text-xs ml-1"></i></a>
+        </div>
+    </nav>
+
+    <!-- Top AdSense Slot -->
+    <div class="max-w-6xl mx-auto w-full px-4 mt-6">
+        <div class="adsbygoogle-placeholder w-full h-[90px] md:h-[90px]">
+            <span>AdSense Top Banner (728x90 or Responsive)</span>
+        </div>
+    </div>
+
+    <!-- Main Content Area -->
+    <main class="flex-grow max-w-6xl mx-auto w-full px-4 py-8">
+        
+        <!-- ==================== 1. TOOL VIEW ==================== -->
+        <div id="tool" class="view-section view-active">
+            <div class="text-center mb-10">
+                <h1 class="text-3xl md:text-5xl font-extrabold mb-4 text-slate-900 tracking-tight">Ultimate Free Image Resizer</h1>
+                <p class="text-slate-500 max-w-2xl mx-auto text-lg">Reduce or <span class="font-bold text-indigo-600">Increase</span> image file size in KB/MB, adjust dimensions, and rotate perfectly. 100% secure offline processing.</p>
+            </div>
+
+            <!-- Upload Area -->
+            <div id="uploadArea" class="bg-white p-14 rounded-2xl shadow-sm border-2 border-dashed border-indigo-300 flex flex-col items-center justify-center transition-all duration-300 cursor-pointer mb-10 hover:border-indigo-500 hover:bg-indigo-50/50">
+                <div class="w-20 h-20 bg-indigo-50 rounded-full flex items-center justify-center mb-6 pointer-events-none">
+                    <i class="fa-solid fa-cloud-arrow-up text-4xl text-indigo-600"></i>
+                </div>
+                <p class="text-slate-700 text-xl mb-6 text-center font-medium pointer-events-none">Drag & Drop your images here or <span class="text-indigo-600 font-bold">browse files</span>.</p>
+                <input type="file" id="fileInput" class="hidden" accept="image/*">
+                <button id="selectBtn" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-10 rounded-xl shadow-md transition-colors text-lg pointer-events-none">
+                    Select Image
+                </button>
+            </div>
+
+            <!-- Editor Area -->
+            <div id="editorArea" class="hidden bg-white p-6 md:p-10 rounded-2xl shadow-sm border border-slate-200 mb-10">
+                <div class="flex flex-col lg:flex-row gap-10">
+                    <!-- Preview Panel -->
+                    <div class="w-full lg:w-1/2 flex flex-col">
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="font-bold text-slate-800 text-lg">Live Preview</span>
+                            <div class="flex gap-2">
+                                <button id="rotateLeftBtn" class="p-2.5 bg-slate-100 hover:bg-slate-200 rounded-lg text-slate-700 transition-colors" title="Rotate Left"><i class="fa-solid fa-rotate-left"></i></button>
+                                <button id="rotateRightBtn" class="p-2.5 bg-slate-100 hover:bg-slate-200 rounded-lg text-slate-700 transition-colors" title="Rotate Right"><i class="fa-solid fa-rotate-right"></i></button>
+                            </div>
+                        </div>
+                        <div class="bg-slate-100 rounded-xl border border-slate-200 w-full h-[400px] flex items-center justify-center overflow-hidden p-4 relative bg-checkerboard">
+                            <!-- CSS for transparent checkerboard background -->
+                            <style>
+                                .bg-checkerboard {
+                                    background-image: linear-gradient(45deg, #e2e8f0 25%, transparent 25%), linear-gradient(-45deg, #e2e8f0 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #e2e8f0 75%), linear-gradient(-45deg, transparent 75%, #e2e8f0 75%);
+                                    background-size: 20px 20px;
+                                    background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+                                }
+                            </style>
+                            <img id="imagePreview" class="max-w-full max-h-full object-contain transition-all duration-200" src="" alt="Preview">
+                        </div>
+                        <div class="mt-6 flex justify-between items-center w-full p-5 bg-indigo-50 rounded-xl border border-indigo-100">
+                            <div>
+                                <p class="text-slate-500 text-sm font-semibold uppercase tracking-wider mb-1">Original Size</p>
+                                <p id="originalSize" class="font-bold text-slate-800 text-lg">0 KB</p>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-indigo-600 text-sm font-semibold uppercase tracking-wider mb-1">New Size</p>
+                                <p id="newSize" class="font-extrabold text-indigo-600 text-2xl">0 KB</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Controls Panel -->
+                    <div class="w-full lg:w-1/2 flex flex-col gap-6">
+                        <h3 class="font-bold text-slate-900 text-xl border-b border-slate-100 pb-3">Optimization Settings</h3>
+                        
+                        <!-- Dimensions -->
+                        <div class="grid grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-sm font-bold text-slate-700 mb-2">Width (px)</label>
+                                <input type="number" id="widthInput" class="w-full border border-slate-300 rounded-xl px-4 py-3 outline-none focus:border-indigo-600 focus:ring-1 focus:ring-indigo-600 transition-shadow text-base bg-slate-50 focus:bg-white">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-bold text-slate-700 mb-2">Height (px)</label>
+                                <input type="number" id="heightInput" class="w-full border border-slate-300 rounded-xl px-4 py-3 outline-none focus:border-indigo-600 focus:ring-1 focus:ring-indigo-600 transition-shadow text-base bg-slate-50 focus:bg-white">
+                            </div>
+                        </div>
+                        
+                        <label class="flex items-center gap-3 cursor-pointer mt-1">
+                            <input type="checkbox" id="aspectRatioLock" checked class="w-5 h-5 text-indigo-600 rounded border-slate-300 focus:ring-indigo-600">
+                            <span class="text-base font-medium text-slate-700">Maintain Aspect Ratio</span>
+                        </label>
+
+                        <!-- Compression Slider -->
+                        <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 mt-2">
+                            <div class="flex justify-between items-center mb-4">
+                                <label class="text-base font-bold text-slate-800">Compression Level</label>
+                                <span class="bg-indigo-600 text-white text-sm font-bold px-3 py-1 rounded-full shadow-sm"><span id="qualityVal">80</span>%</span>
+                            </div>
+                            <input type="range" id="qualityInput" min="1" max="100" value="80" class="w-full h-2 bg-slate-300 rounded-lg appearance-none cursor-pointer">
+                            <p class="text-xs text-slate-500 mt-3 font-medium">Tip: Slide right (100%) to INCREASE file size, slide left to REDUCE size.</p>
+                            <p id="pngWarning" class="text-xs text-red-500 mt-2 font-bold hidden"><i class="fa-solid fa-circle-exclamation"></i> Note: PNG is Lossless. Slider won't change its size. Select WebP to compress with transparency.</p>
+                        </div>
+
+                        <!-- Format -->
+                        <div>
+                            <label class="block text-sm font-bold text-slate-700 mb-2">Export Format</label>
+                            <select id="formatSelect" class="w-full border border-slate-300 rounded-xl px-4 py-3 outline-none focus:border-indigo-600 focus:ring-1 focus:ring-indigo-600 text-base font-medium text-slate-700 bg-slate-50 focus:bg-white appearance-none cursor-pointer">
+                                <option value="image/jpeg">JPG / JPEG (Standard)</option>
+                                <option value="image/png">PNG (High Quality)</option>
+                                <option value="image/webp">WebP (Best for Web)</option>
+                            </select>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="mt-auto pt-6 flex gap-4">
+                            <button id="resetBtn" class="w-1/3 bg-white border border-slate-300 text-slate-700 hover:bg-slate-50 font-bold py-3.5 px-4 rounded-xl transition-colors text-base shadow-sm">
+                                Cancel
+                            </button>
+                            <button id="downloadBtn" class="w-2/3 bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3.5 px-4 rounded-xl shadow-md transition-all text-base flex items-center justify-center gap-2 relative overflow-hidden">
+                                <span id="downloadBtnIcon"><i class="fa-solid fa-download"></i></span> 
+                                <span id="downloadBtnText">Download Image</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- In-Content AdSense Slot -->
+            <div class="adsbygoogle-placeholder w-full h-[250px] my-10 max-w-4xl mx-auto">
+                <span>AdSense In-Article Banner (Responsive)</span>
+            </div>
+
+            <!-- MASSIVE SEO CONTENT SECTION -->
+            <article class="bg-white p-8 md:p-12 rounded-2xl shadow-sm border border-slate-200 mt-10 text-slate-600 prose max-w-none">
+                
+                <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 mb-6">Photo Ka Size Kam Kaise Kare? (Reduce & Increase Image Size)</h2>
+                
+                <p class="text-lg mb-6 leading-relaxed">Welcome to ImageReducers.com! Chahe aap kisi university portal par admission form upload kar rahe hon, freelance graphic design ka client work bhej rahe hon, ya kisi government project (jaise Apni Chhat Apna Ghar scheme) ka online form fill kar rahe hon, image size hamesha ek masla hota hai. Aksar online portals ki sakht requirement hoti hai ke picture ka size 50KB, 20KB, ya 100KB se kam ho. Yeh tool aapko apni photos ko perfectly resize aur compress karne ki sahulat deta hai, bina image ki quality kharab kiye.</p>
+
+                <!-- SEO Image -->
+                <div class="w-full h-64 md:h-96 rounded-2xl overflow-hidden mb-8 shadow-md">
+                    <img src="https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?auto=format&fit=crop&w=1200&q=80" alt="Image Optimization and Resizing Dashboard" class="w-full h-full object-cover">
+                </div>
+                
+                <h3 class="text-2xl font-bold text-slate-900 mt-8 mb-4"><i class="fa-solid fa-compress text-indigo-600 mr-2"></i> Reduce Image Size in KB (MB to KB Converter)</h3>
+                <p class="mb-4 text-lg">High-resolution phone cameras aur DSLRs bohat bari files (MBs mein) generate karte hain. In heavy pictures ko website par lagane se speed slow hoti hai aur form portals inko reject kar dete hain.</p>
+                <ul class="list-disc pl-6 mb-6 space-y-2 text-lg">
+                    <li><strong class="text-slate-800">SEO & Web Performance:</strong> Search engines like Google aur Bing fast websites ko pasand karte hain. Apni images ko KB mein compress karke apni website ko rank karwayen.</li>
+                    <li><strong class="text-slate-800">Easy Form Uploads:</strong> Kisi bhi admission form ya job portal par error se bachne ke liye image ko 20kb se 50kb ke darmiyan compress karein.</li>
+                    <li><strong class="text-slate-800">Storage Optimization:</strong> Apni hard drive aur mobile ki memory bachane ke liye bhari JPEGs aur PNGs ko compress karein.</li>
+                </ul>
+
+                <h3 class="text-2xl font-bold text-slate-900 mt-8 mb-4"><i class="fa-solid fa-expand text-indigo-600 mr-2"></i> How to INCREASE Image Size? (Choti photo ko bara karein)</h3>
+                <p class="mb-4 text-lg">Sirf size kam hi nahi, is tool ki madad se aap image ka size <strong class="text-slate-800">barha (Increase)</strong> bhi sakte hain! Aksar portals ki requirement hoti hai ke image kam az kam 500KB ki ho. Agar aapki image 244KB ki hai, toh usko bara kaise karein?</p>
+                <div class="bg-slate-50 p-6 rounded-xl border-l-4 border-indigo-600 mb-6 text-slate-700 shadow-sm">
+                    <strong class="text-slate-900">Tariqa (Steps to Increase Size):</strong> 
+                    Tool mein apni picture upload karein. <strong>Compression Level ke slider ko 100% par set kar dein.</strong> Ya phir Dimensions (Width aur Height) mein numbers barha dein. Aap dekhenge ke Live Preview mein New Size (jaise 624 KB) original se zyada ho jayega! Phir easily download par click kar lein.
+                </div>
+
+                <!-- FOREIGN SEO SECTION -->
+                <h3 class="text-2xl font-bold text-slate-900 mt-12 mb-4 border-t border-slate-200 pt-8"><i class="fa-solid fa-earth-americas text-indigo-600 mr-2"></i> International Optimization (Global Tools)</h3>
+                <p class="mb-4 text-lg">We support users globally. Use our tool to optimize your images in any language:</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+                    <!-- Spanish -->
+                    <div class="bg-slate-50 p-6 rounded-xl border border-slate-200 hover:border-indigo-400 transition-colors">
+                        <h4 class="font-bold text-indigo-600 text-lg mb-2">🇪🇸 Reducir tamaño de imagen</h4>
+                        <p class="text-sm text-slate-600">Herramienta gratuita para <strong>reducir tamaño de imagen</strong> en KB. Comprimir fotos online sin perder calidad. Perfecto para optimización SEO y formularios web.</p>
+                    </div>
+                    <!-- French -->
+                    <div class="bg-slate-50 p-6 rounded-xl border border-slate-200 hover:border-indigo-400 transition-colors">
+                        <h4 class="font-bold text-indigo-600 text-lg mb-2">🇫🇷 Compresseur d'Images</h4>
+                        <p class="text-sm text-slate-600">Le meilleur outil pour <strong>réduire la taille de l'image</strong> en ligne. Compresser des photos en KB rapidement pour le web et les documents officiels.</p>
+                    </div>
+                    <!-- German -->
+                    <div class="bg-slate-50 p-6 rounded-xl border border-slate-200 hover:border-indigo-400 transition-colors">
+                        <h4 class="font-bold text-indigo-600 text-lg mb-2">🇩🇪 Bildgröße verkleinern</h4>
+                        <p class="text-sm text-slate-600">Kostenlos <strong>Bildgröße verkleinern</strong> in KB/MB. Bilder komprimieren und zuschneiden online ohne Qualitätsverlust. Ideal für schnelle Webseiten.</p>
+                    </div>
+                </div>
+
+                <h3 class="text-2xl font-bold text-slate-900 mt-10 mb-4">How to Use This Tool? (Istamal Karne Ka Tariqa)</h3>
+                <ol class="list-decimal pl-6 mb-8 space-y-3 text-lg font-medium text-slate-700">
+                    <li><strong>Select Image:</strong> Upar diye gaye box mein apni image ko drag & drop karein ya 'Select Image' button par click karein.</li>
+                    <li><strong>Resize Dimensions:</strong> Zaroorat ke mutabiq Width (Chorai) aur Height (Lumbai) change karein.</li>
+                    <li><strong>Adjust Compression:</strong> File size ko KB mein set karne ke liye slider ko aage peeche karein. Slider left karne se size kam hoga, right karne se barhega.</li>
+                    <li><strong>Rotate (Ghumayen):</strong> Agar photo ulti upload ho gayi hai toh rotate buttons se usay seedha karein.</li>
+                    <li><strong>Download:</strong> Akhir mein JPG, PNG, ya WebP format select kar ke apne device mein save kar lein.</li>
+                </ol>
+
+                <h3 class="text-2xl font-bold text-slate-900 mt-10 mb-4"><i class="fa-solid fa-shield-halved text-green-500 mr-2"></i> 100% Safe, Secure & Private</h3>
+                <p class="mb-4 text-lg">Aapki privacy sab se ahem hai. Dusre online tools aapki personal pictures ko apne server par upload karte hain, lekin <strong class="text-slate-800">ImageReducers.com par saara kaam aapke apne browser (offline) mein hota hai.</strong> Aapki koi bhi photo, ID card, ya document internet par kisi server par upload nahi hota. Yeh tool super-fast hai aur bina internet speed lagaye seconds mein image edit kar deta hai.</p>
+            </article>
+        </div>
+
+        <!-- ==================== 2. ABOUT US VIEW ==================== -->
+        <div id="about" class="view-section">
+            <div class="bg-white p-8 md:p-12 rounded-2xl shadow-sm border border-slate-200 max-w-4xl mx-auto">
+                <h1 class="text-3xl font-extrabold text-slate-900 mb-8">About Us</h1>
+                <div class="prose text-slate-600 text-lg space-y-6">
+                    <p>Welcome to <strong class="text-slate-800">ImageReducers.com</strong>, a premium web utility platform designed to make digital life easier. This tool was developed by Muhammad Rameez Tariq, a professional web developer, graphic designer, and technology enthusiast.</p>
+                    <p>With an extensive background in managing daily technical operations, designing dynamic single-page applications, and developing seamless digital solutions, the vision behind ImageReducers was clear: build a robust tool that solves a daily problem quickly, securely, and efficiently.</p>
+                    <p>Our mission is to empower users with tools that do not compromise their privacy. By utilizing advanced client-side architecture, this tool processes every image locally on your machine. We are committed to providing a secure platform where you can resize, compress, and edit images without worrying about server uploads or data breaches.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== 3. CONTACT US VIEW ==================== -->
+        <div id="contact" class="view-section">
+            <div class="bg-white p-8 md:p-12 rounded-2xl shadow-sm border border-slate-200 max-w-4xl mx-auto">
+                <h1 class="text-3xl font-extrabold text-slate-900 mb-6">Contact Us</h1>
+                <p class="text-slate-600 mb-8 text-lg">Whether you have a feature request, want to report a bug, or are interested in business inquiries, we are here to help. You can fill out the form below or email us directly.</p>
+                
+                <div class="bg-indigo-50 p-6 rounded-xl border border-indigo-100 mb-10 text-center">
+                    <p class="font-bold text-slate-800 text-lg mb-2">Direct Email Address:</p>
+                    <a href="mailto:gggrameez.93@gmail.com" class="text-indigo-600 hover:text-indigo-800 transition-colors text-2xl font-black tracking-wide">gggrameez.93@gmail.com</a>
+                </div>
+
+                <div class="w-full bg-white rounded-xl border border-slate-200 overflow-hidden shadow-inner" style="height: 961px;">
+                    <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfEg0AnJe02dl2ZiYf7_TSsddsyPeKqNPjUOw3aaSWaQ2fuNQ/viewform?embedded=true" width="100%" height="100%" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== 4. PRIVACY POLICY VIEW (EXPANDED) ==================== -->
+        <div id="privacy" class="view-section">
+            <div class="bg-white p-8 md:p-12 rounded-2xl shadow-sm border border-slate-200 prose max-w-4xl mx-auto text-slate-600">
+                <h1 class="text-3xl font-extrabold text-slate-900 mb-6">Privacy Policy</h1>
+                <p class="text-sm text-slate-400 mb-6">Last Updated: August 2026</p>
+                
+                <p class="text-lg">At <strong>ImageReducers.com</strong>, accessible from https://imagereducers.com, one of our main priorities is the privacy of our visitors. This Privacy Policy document contains types of information that is collected and recorded by ImageReducers.com and how we use it.</p>
+                <p class="text-lg">If you have additional questions or require more information about our Privacy Policy, do not hesitate to contact us through email.</p>
+
+                <h3 class="text-2xl font-bold text-slate-900 mt-8">1. Client-Side Image Processing (Core Privacy Feature)</h3>
+                <p class="text-lg">Unlike many online image manipulation tools, ImageReducers.com operates completely via Client-Side processing (using Javascript in your browser). <strong>This means any image you upload, compress, or resize is processed strictly on your local device. We do not upload, save, store, or transmit your files to any external servers or databases.</strong> Your files are 100% secure and private.</p>
+
+                <h3 class="text-2xl font-bold text-slate-900 mt-8">2. Log Files</h3>
+                <p class="text-lg">ImageReducers.com follows a standard procedure of using log files. These files log visitors when they visit websites. All hosting companies do this and a part of hosting services' analytics. The information collected by log files include internet protocol (IP) addresses, browser type, Internet Service Provider (ISP), date and time stamp, referring/exit pages, and possibly the number of clicks. These are not linked to any information that is personally identifiable. The purpose of the information is for analyzing trends, administering the site, tracking users' movement on the website, and gathering demographic information.</p>
+
+                <h3 class="text-2xl font-bold text-slate-900 mt-8">3. Cookies and Web Beacons</h3>
+                <p class="text-lg">Like any other website, ImageReducers.com uses "cookies". These cookies are used to store information including visitors' preferences, and the pages on the website that the visitor accessed or visited. The information is used to optimize the users' experience by customizing our web page content based on visitors' browser type and/or other information.</p>
+
+                <h3 class="text-2xl font-bold text-slate-900 mt-8">4. Google AdSense & DoubleClick DART Cookie</h3>
+                <p class="text-lg">Google is one of a third-party vendor on our site. It also uses cookies, known as DART cookies, to serve ads to our site visitors based upon their visit to www.website.com and other sites on the internet. However, visitors may choose to decline the use of DART cookies by visiting the Google ad and content network Privacy Policy at the following URL – <a href="https://policies.google.com/technologies/ads" target="_blank" class="text-indigo-600">https://policies.google.com/technologies/ads</a></p>
+
+                <h3 class="text-2xl font-bold text-slate-900 mt-8">5. Our Advertising Partners</h3>
+                <p class="text-lg">Some of advertisers on our site may use cookies and web beacons. Our advertising partners include Google. Each of our advertising partners has their own Privacy Policy for their policies on user data.</p>
+
+                <h3 class="text-2xl font-bold text-slate-900 mt-8">6. Third Party Privacy Policies</h3>
+                <p class="text-lg">ImageReducers.com's Privacy Policy does not apply to other advertisers or websites. Thus, we are advising you to consult the respective Privacy Policies of these third-party ad servers for more detailed information. It may include their practices and instructions about how to opt-out of certain options.</p>
+
+                <h3 class="text-2xl font-bold text-slate-900 mt-8">7. CCPA Privacy Rights (Do Not Sell My Personal Information)</h3>
+                <p class="text-lg">Under the CCPA, among other rights, California consumers have the right to request that a business that collects a consumer's personal data disclose the categories and specific pieces of personal data that a business has collected about consumers. Because our tool does not collect personal image data, this inherently protects your core privacy rights.</p>
+
+                <h3 class="text-2xl font-bold text-slate-900 mt-8">8. GDPR Data Protection Rights</h3>
+                <p class="text-lg">We would like to make sure you are fully aware of all of your data protection rights. Every user is entitled to the right to access, rectification, erasure, restrict processing, object to processing, and data portability.</p>
+
+                <h3 class="text-2xl font-bold text-slate-900 mt-8">9. Children's Information</h3>
+                <p class="text-lg">Another part of our priority is adding protection for children while using the internet. We encourage parents and guardians to observe, participate in, and/or monitor and guide their online activity. ImageReducers.com does not knowingly collect any Personal Identifiable Information from children under the age of 13.</p>
+
+                <h3 class="text-2xl font-bold text-slate-900 mt-8">10. Consent</h3>
+                <p class="text-lg">By using our website, you hereby consent to our Privacy Policy and agree to its Terms and Conditions.</p>
+            </div>
+        </div>
+
+        <!-- ==================== 5. TERMS & CONDITIONS VIEW ==================== -->
+        <div id="terms" class="view-section">
+            <div class="bg-white p-8 md:p-12 rounded-2xl shadow-sm border border-slate-200 prose max-w-4xl mx-auto text-slate-600">
+                <h1 class="text-3xl font-extrabold text-slate-900 mb-6">Terms & Conditions</h1>
+                <p class="text-lg">By accessing this website, we assume you accept these terms and conditions. Do not continue to use ImageReducers.com if you do not agree to all of the terms and conditions stated on this page.</p>
+                <h3 class="text-2xl font-bold text-slate-900 mt-8">License & Usage</h3>
+                <p class="text-lg">This tool is provided for free for both personal and commercial use. However, you must not republish, sell, rent, or sub-license material from ImageReducers.com.</p>
+                <h3 class="text-2xl font-bold text-slate-900 mt-8">User Responsibilities</h3>
+                <p class="text-lg">You are solely responsible for the images you choose to process using this tool. We do not claim any ownership over your original or processed files.</p>
+            </div>
+        </div>
+
+        <!-- ==================== 6. DISCLAIMER VIEW ==================== -->
+        <div id="disclaimer" class="view-section">
+            <div class="bg-white p-8 md:p-12 rounded-2xl shadow-sm border border-slate-200 prose max-w-4xl mx-auto text-slate-600">
+                <h1 class="text-3xl font-extrabold text-slate-900 mb-6">Disclaimer</h1>
+                <p class="text-lg">All the information on this website is published in good faith and for general information purpose only. ImageReducers.com does not make any warranties about the completeness, reliability, and accuracy of this tool.</p>
+                <p class="text-lg">Any action you take upon the information or tools you find on this website is strictly at your own risk. ImageReducers.com will not be liable for any losses and/or damages in connection with the use of our website.</p>
+            </div>
+        </div>
+        
+    </main>
+
+    <!-- Footer with all 5 AdSense Pillar Pages & Logo -->
+    <footer class="bg-white border-t border-slate-200 py-10 mt-auto">
+        <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-6 text-slate-500 text-sm">
+            <div class="flex items-center gap-3">
+                <img src="logo.png" alt="Logo" class="w-7 h-7 object-contain" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <i class="fa-solid fa-circle-nodes text-indigo-600 text-xl" style="display: none;"></i>
+                <p class="font-semibold text-slate-700 text-base">&copy; 2026 ImageReducers.com - All rights reserved.</p>
+            </div>
+            <div class="flex flex-wrap justify-center gap-6">
+                <button onclick="switchTab('about');" class="hover:text-indigo-600 font-semibold transition-colors focus:outline-none">About Us</button>
+                <button onclick="switchTab('contact');" class="hover:text-indigo-600 font-semibold transition-colors focus:outline-none">Contact Us</button>
+                <button onclick="switchTab('privacy');" class="hover:text-indigo-600 font-semibold transition-colors focus:outline-none">Privacy Policy</button>
+                <button onclick="switchTab('terms');" class="hover:text-indigo-600 font-semibold transition-colors focus:outline-none">Terms & Conditions</button>
+                <button onclick="switchTab('disclaimer');" class="hover:text-indigo-600 font-semibold transition-colors focus:outline-none">Disclaimer</button>
+            </div>
+        </div>
+    </footer>
+
+    <!-- STICKY ANCHOR AD PLACEHOLDER -->
+    <div id="stickyAd" class="fixed bottom-0 left-0 w-full bg-white border-t border-slate-200 shadow-[0_-4px_10px_rgba(0,0,0,0.05)] z-[100] flex justify-center items-center py-2 px-4 sticky-ad-container">
+        <!-- Close Button -->
+        <button onclick="document.getElementById('stickyAd').style.display='none'" class="absolute top-1 right-2 w-6 h-6 flex items-center justify-center bg-slate-100 hover:bg-slate-200 rounded-full text-slate-500 hover:text-slate-800 transition-colors z-10" aria-label="Close Ad">
+            <i class="fa-solid fa-xmark text-sm"></i>
+        </button>
+        <!-- Ad Container -->
+        <div class="adsbygoogle-placeholder w-full max-w-[728px] h-[50px] md:h-[90px] !m-0 !bg-slate-50 !border-slate-300">
+            <span class="text-xs font-semibold uppercase tracking-wider text-slate-400">Sticky AdSense Slot (Anchor Ad)</span>
+        </div>
+    </div>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // NAVIGATION FIX: Completely decoupled from window.event to prevent browser compatibility issues
+        function switchTab(tabId) {
+            // Hide all views
+            document.querySelectorAll('.view-section').forEach(el => el.classList.remove('view-active'));
+            // Show target view
+            const targetView = document.getElementById(tabId);
+            if(targetView) {
+                targetView.classList.add('view-active');
+            }
+            
+            // Update top desktop nav active state
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('tab-active', 'text-slate-900');
+                btn.classList.add('text-slate-600');
+                if(btn.getAttribute('onclick') && btn.getAttribute('onclick').includes(tabId)){
+                    btn.classList.add('tab-active', 'text-slate-900');
+                    btn.classList.remove('text-slate-600');
+                }
+            });
+
+            // Update mobile nav active state
+            document.querySelectorAll('.nav-btn-mobile').forEach(btn => {
+                btn.classList.remove('text-indigo-600', 'font-bold');
+                btn.classList.add('text-slate-600', 'font-semibold');
+                if(btn.getAttribute('onclick') && btn.getAttribute('onclick').includes(tabId)){
+                    btn.classList.add('text-indigo-600', 'font-bold');
+                    btn.classList.remove('text-slate-600', 'font-semibold');
+                }
+            });
+            
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Image Editor Logic
+        const uploadArea = document.getElementById('uploadArea');
+        const fileInput = document.getElementById('fileInput');
+        const selectBtn = document.getElementById('selectBtn');
+        const editorArea = document.getElementById('editorArea');
+        const imagePreview = document.getElementById('imagePreview');
+        const widthInput = document.getElementById('widthInput');
+        const heightInput = document.getElementById('heightInput');
+        const qualityInput = document.getElementById('qualityInput');
+        const qualityVal = document.getElementById('qualityVal');
+        const formatSelect = document.getElementById('formatSelect');
+        const aspectRatioLock = document.getElementById('aspectRatioLock');
+        const rotateLeftBtn = document.getElementById('rotateLeftBtn');
+        const rotateRightBtn = document.getElementById('rotateRightBtn');
+        const downloadBtn = document.getElementById('downloadBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const originalSizeTxt = document.getElementById('originalSize');
+        const newSizeTxt = document.getElementById('newSize');
+
+        let originalImage = new Image();
+        let currentFile = null;
+        let originalFileName = "";
+        let originalRatio = 1;
+        let rotationAngle = 0;
+        let processTimeout;
+
+        // Make the entire box clickable, preventing issues with child elements blocking clicks
+        uploadArea.addEventListener('click', (e) => { 
+            e.stopPropagation();
+            fileInput.click(); 
+        });
+        
+        uploadArea.addEventListener('dragover', (e) => { e.preventDefault(); uploadArea.classList.add('drag-over'); });
+        uploadArea.addEventListener('dragleave', () => { uploadArea.classList.remove('drag-over'); });
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('drag-over');
+            if (e.dataTransfer.files.length) handleFile(e.dataTransfer.files[0]);
+        });
+        
+        fileInput.addEventListener('change', (e) => {
+            if (e.target.files.length) handleFile(e.target.files[0]);
+        });
+
+        function handleFile(file) {
+            if (!file.type.match('image.*')) { alert('Please select an image file.'); return; }
+            
+            // Check if file is too large (e.g. > 20MB) to prevent browser crash
+            if(file.size > 20 * 1024 * 1024) {
+                alert("File is too large! Please select an image under 20MB.");
+                return;
+            }
+
+            currentFile = file;
+            originalFileName = file.name;
+            originalSizeTxt.textContent = (file.size / 1024).toFixed(1) + ' KB';
+            
+            if(file.type === 'image/png') formatSelect.value = 'image/png';
+            else if(file.type === 'image/webp') formatSelect.value = 'image/webp';
+            else formatSelect.value = 'image/jpeg';
+            
+            checkPNGWarning();
+
+            const reader = new FileReader();
+            reader.onload = (e) => { originalImage.src = e.target.result; };
+            reader.readAsDataURL(file);
+        }
+
+        originalImage.onload = () => {
+            rotationAngle = 0;
+            originalRatio = originalImage.width / originalImage.height;
+            widthInput.value = originalImage.width;
+            heightInput.value = originalImage.height;
+            qualityInput.value = 80;
+            qualityVal.textContent = 80;
+            uploadArea.classList.add('hidden');
+            editorArea.classList.remove('hidden');
+            processImage();
+        };
+
+        // Debounce wrapper for performance on large images
+        function debouncedProcessImage() {
+            clearTimeout(processTimeout);
+            processTimeout = setTimeout(processImage, 150);
+        }
+
+        widthInput.addEventListener('input', () => {
+            if (aspectRatioLock.checked && widthInput.value) heightInput.value = Math.round(widthInput.value / originalRatio);
+            debouncedProcessImage();
+        });
+        heightInput.addEventListener('input', () => {
+            if (aspectRatioLock.checked && heightInput.value) widthInput.value = Math.round(heightInput.value * originalRatio);
+            debouncedProcessImage();
+        });
+        qualityInput.addEventListener('input', () => { 
+            qualityVal.textContent = qualityInput.value; 
+            debouncedProcessImage(); 
+        });
+        
+        function checkPNGWarning() {
+            const pngWarning = document.getElementById('pngWarning');
+            if(formatSelect.value === 'image/png') {
+                if(pngWarning) pngWarning.classList.remove('hidden');
+                qualityInput.disabled = true;
+                qualityInput.classList.add('opacity-50', 'cursor-not-allowed');
+            } else {
+                if(pngWarning) pngWarning.classList.add('hidden');
+                qualityInput.disabled = false;
+                qualityInput.classList.remove('opacity-50', 'cursor-not-allowed');
+            }
+        }
+
+        formatSelect.addEventListener('change', () => {
+            checkPNGWarning();
+            debouncedProcessImage();
+        });
+
+        rotateLeftBtn.addEventListener('click', () => {
+            rotationAngle = (rotationAngle - 90) % 360;
+            if(rotationAngle < 0) rotationAngle += 360;
+            processImage();
+        });
+        rotateRightBtn.addEventListener('click', () => {
+            rotationAngle = (rotationAngle + 90) % 360;
+            processImage();
+        });
+
+        function processImage() {
+            if (!originalImage.src) return;
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            const targetWidth = parseInt(widthInput.value) || originalImage.width;
+            const targetHeight = parseInt(heightInput.value) || originalImage.height;
+            
+            if (rotationAngle === 90 || rotationAngle === 270) {
+                canvas.width = targetHeight; canvas.height = targetWidth;
+            } else {
+                canvas.width = targetWidth; canvas.height = targetHeight;
+            }
+            
+            ctx.translate(canvas.width / 2, canvas.height / 2);
+            ctx.rotate((rotationAngle * Math.PI) / 180);
+            
+            if (formatSelect.value === 'image/jpeg') {
+                ctx.fillStyle = "#ffffff";
+                ctx.fillRect(-targetWidth / 2, -targetHeight / 2, targetWidth, targetHeight);
+            }
+            ctx.drawImage(originalImage, -targetWidth / 2, -targetHeight / 2, targetWidth, targetHeight);
+            
+            const quality = parseInt(qualityInput.value) / 100;
+            const dataUrl = canvas.toDataURL(formatSelect.value, quality);
+            
+            // This updates the visual live preview properly
+            imagePreview.src = dataUrl; 
+            
+            const base64Length = dataUrl.length - (dataUrl.indexOf(',') + 1);
+            const padding = (dataUrl.charAt(dataUrl.length - 2) === '=') ? 2 : ((dataUrl.charAt(dataUrl.length - 1) === '=') ? 1 : 0);
+            const fileSize = (base64Length * 0.75) - padding;
+            
+            newSizeTxt.textContent = (fileSize / 1024).toFixed(1) + ' KB';
+            downloadBtn.setAttribute('data-href', dataUrl);
+        }
+
+        // 5-Second Processing/Redirect Simulation Logic for Ad Monetization
+        downloadBtn.addEventListener('click', () => {
+            if (downloadBtn.disabled) return; // Prevent multiple clicks
+            
+            const btnIcon = document.getElementById('downloadBtnIcon');
+            const btnText = document.getElementById('downloadBtnText');
+            
+            const originalHTML = downloadBtn.innerHTML;
+            downloadBtn.disabled = true;
+            downloadBtn.classList.add('opacity-80', 'cursor-not-allowed');
+            
+            let timeLeft = 5;
+            downloadBtn.innerHTML = `<i class="fa-solid fa-circle-notch fa-spin"></i> <span>Processing... (${timeLeft}s)</span>`;
+            
+            const countdownInterval = setInterval(() => {
+                timeLeft--;
+                if (timeLeft > 0) {
+                    downloadBtn.innerHTML = `<i class="fa-solid fa-circle-notch fa-spin"></i> <span>Processing... (${timeLeft}s)</span>`;
+                } else {
+                    clearInterval(countdownInterval);
+                    
+                    // Trigger Actual Download
+                    const link = document.createElement('a');
+                    let ext = formatSelect.value.split('/')[1];
+                    if(ext === 'jpeg') ext = 'jpg';
+                    let baseName = originalFileName.substring(0, originalFileName.lastIndexOf('.')) || originalFileName;
+                    link.download = `${baseName}_optimized.${ext}`;
+                    link.href = downloadBtn.getAttribute('data-href');
+                    link.click();
+                    
+                    // Reset Button Status visually
+                    downloadBtn.innerHTML = `<i class="fa-solid fa-check"></i> <span>Success!</span>`;
+                    downloadBtn.classList.remove('bg-indigo-600', 'hover:bg-indigo-700');
+                    downloadBtn.classList.add('bg-green-600', 'hover:bg-green-700');
+                    
+                    // Revert back to normal after 3 seconds
+                    setTimeout(() => {
+                        downloadBtn.innerHTML = originalHTML;
+                        downloadBtn.disabled = false;
+                        downloadBtn.classList.remove('opacity-80', 'cursor-not-allowed', 'bg-green-600', 'hover:bg-green-700');
+                        downloadBtn.classList.add('bg-indigo-600', 'hover:bg-indigo-700');
+                    }, 3000);
+                }
+            }, 1000);
+        });
+
+        resetBtn.addEventListener('click', () => {
+            uploadArea.classList.remove('hidden');
+            editorArea.classList.add('hidden');
+            fileInput.value = '';
+            rotationAngle = 0;
+            imagePreview.src = '';
+        });
+    </script>
+</body>
+</html>
