@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Free Image Resizer & Reducer - Compress Images in KB Online</title>
-    <meta name="description" content="The ultimate free image reducer and resizer. Photo ka size kam karein. Compress images in KB, resize dimensions, and rotate pictures online securely.">
-    <meta name="keywords" content="image reducer, image resizer, reduce image size in kb, photo ka size kam kare, reducir tamaño de imagen, réduire la taille de l'image, Bildgröße verkleinern, compress image, resize image online">
+    <meta name="description" content="The ultimate free image reducer and resizer online. Easily get an image in 50kb, use our image reducer to 200kb, or compress images in KB securely offline.">
+    <meta name="keywords" content="image reducer, image reducer in mb, image reducer to 200kb, image reducer to kb, image reducer online, image resizer, image resizer free, image resizer online, image in 50kb, image in 50kb jpg, image in 50kb convert, free quiilty increser, reduced image in 50 kb">
     
     <!-- Favicon (Browser Tab Logo) -->
     <link rel="icon" type="image/png" href="logo.png">
@@ -18,15 +18,15 @@
     
     <style>
         /* Modern SaaS Professional Styling */
-        body { background-color: #f8fafc; /* Slate-50 */ }
-        .drag-over { background-color: #e0e7ff; border-color: #4f46e5; } /* Indigo-100 & Indigo-600 */
+        body { background-color: #f8fafc; }
+        .drag-over { background-color: #e0e7ff; border-color: #4f46e5; } 
         .tab-active { border-bottom: 3px solid #4f46e5; color: #0f172a; font-weight: 700; }
         .view-section { display: none; }
         .view-active { display: block; }
         
         /* Custom Input Range Styling */
         input[type=range] {
-            accent-color: #4f46e5; /* Indigo-600 */
+            accent-color: #4f46e5; 
         }
 
         /* AdSense Placeholder */
@@ -61,7 +61,6 @@
             <!-- Brand Logo & Name -->
             <div class="flex items-center gap-3 cursor-pointer" onclick="switchTab('tool')">
                 <img src="logo.png" alt="Logo" class="w-9 h-9 object-contain" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-                <!-- Fallback icon if logo.png is missing -->
                 <i class="fa-solid fa-circle-nodes text-indigo-600 text-3xl" style="display: none;"></i>
                 <span class="text-2xl font-extrabold text-slate-900 tracking-tight">ImageReducers</span>
             </div>
@@ -69,6 +68,7 @@
             <!-- Desktop Menu -->
             <div class="hidden md:flex space-x-8 items-center">
                 <button class="nav-btn tab-active pb-1 text-base font-semibold" onclick="switchTab('tool')">Tool</button>
+                <button class="nav-btn text-slate-600 pb-1 text-base font-semibold transition-colors" onclick="switchTab('howto')"><i class="fa-solid fa-circle-question text-indigo-600 mr-1"></i> How to Use</button>
                 <button class="nav-btn text-slate-600 pb-1 text-base font-semibold transition-colors" onclick="switchTab('about')">About Us</button>
                 <button class="nav-btn text-slate-600 pb-1 text-base font-semibold transition-colors" onclick="switchTab('contact')">Contact</button>
                 <a href="https://blog.imagereducers.com" target="_blank" class="text-slate-600 hover:text-indigo-600 font-semibold text-base transition-colors">Blog <i class="fa-solid fa-arrow-up-right-from-square text-xs ml-1"></i></a>
@@ -83,6 +83,7 @@
         <!-- Mobile Menu -->
         <div id="mobileMenu" class="hidden md:hidden bg-white border-t border-slate-100 flex flex-col px-4 py-2 space-y-2 pb-4 shadow-md absolute w-full z-40">
             <button class="text-left py-3 border-b border-slate-50 text-indigo-600 font-bold nav-btn-mobile" onclick="switchTab('tool'); this.parentElement.classList.add('hidden')">Tool</button>
+            <button class="text-left py-3 border-b border-slate-50 text-slate-600 font-semibold nav-btn-mobile" onclick="switchTab('howto'); this.parentElement.classList.add('hidden')"><i class="fa-solid fa-circle-question text-indigo-600 mr-1"></i> How to Use</button>
             <button class="text-left py-3 border-b border-slate-50 text-slate-600 font-semibold nav-btn-mobile" onclick="switchTab('about'); this.parentElement.classList.add('hidden')">About Us</button>
             <button class="text-left py-3 border-b border-slate-50 text-slate-600 font-semibold nav-btn-mobile" onclick="switchTab('contact'); this.parentElement.classList.add('hidden')">Contact Us</button>
             <a href="https://blog.imagereducers.com" target="_blank" class="block py-3 text-slate-600 font-semibold">Blog <i class="fa-solid fa-arrow-up-right-from-square text-xs ml-1"></i></a>
@@ -181,6 +182,13 @@
                                 <span class="bg-indigo-600 text-white text-sm font-bold px-3 py-1 rounded-full shadow-sm"><span id="qualityVal">80</span>%</span>
                             </div>
                             <input type="range" id="qualityInput" min="1" max="100" value="80" class="w-full h-2 bg-slate-300 rounded-lg appearance-none cursor-pointer">
+                            
+                            <!-- SMART POP-UP WARNING -->
+                            <div id="lowQualityWarning" class="hidden mt-3 p-3 bg-red-50 border border-red-200 rounded-lg text-red-700 text-xs font-bold flex items-center gap-2">
+                                <i class="fa-solid fa-triangle-exclamation text-base"></i>
+                                <span>⚠️ Warning: Quality is getting too low! The image may become pixelated. Please keep the slider above 60% and reduce the Width (px) instead.</span>
+                            </div>
+                            
                             <p class="text-xs text-slate-500 mt-3 font-medium">Tip: Slide right (100%) to INCREASE file size, slide left to REDUCE size.</p>
                             <p id="pngWarning" class="text-xs text-red-500 mt-2 font-bold hidden"><i class="fa-solid fa-circle-exclamation"></i> Note: PNG is Lossless. Slider won't change its size. Select WebP to compress with transparency.</p>
                         </div>
@@ -214,31 +222,38 @@
                 <span>AdSense In-Article Banner (Responsive)</span>
             </div>
 
-            <!-- MASSIVE SEO CONTENT SECTION -->
+            <!-- MASSIVE SEO CONTENT SECTION (UPDATED FOR GOOGLE SEARCH INTENT) -->
             <article class="bg-white p-8 md:p-12 rounded-2xl shadow-sm border border-slate-200 mt-10 text-slate-600 prose max-w-none">
                 
-                <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 mb-6">Photo Ka Size Kam Kaise Kare? (Reduce & Increase Image Size)</h2>
+                <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 mb-6">The Ultimate Free Image Reducer & Image Resizer Online</h2>
                 
-                <p class="text-lg mb-6 leading-relaxed">Welcome to ImageReducers.com! Chahe aap kisi university portal par admission form upload kar rahe hon, freelance graphic design ka client work bhej rahe hon, ya kisi government project (jaise Apni Chhat Apna Ghar scheme) ka online form fill kar rahe hon, image size hamesha ek masla hota hai. Aksar online portals ki sakht requirement hoti hai ke picture ka size 50KB, 20KB, ya 100KB se kam ho. Yeh tool aapko apni photos ko perfectly resize aur compress karne ki sahulat deta hai, bina image ki quality kharab kiye.</p>
+                <p class="text-lg mb-6 leading-relaxed">Welcome to ImageReducers.com, the most powerful and intuitive <strong>image resizer free</strong> tool available on the web today. Whether you need a secure <strong>image reducer online</strong> for a professional portfolio, or simply want to format a precise <strong>image in 50kb jpg</strong> for a strict online application, our tool delivers instant, high-quality results. Our architecture guarantees that you can quickly resize and compress digital photos without compromising clarity or sacrificing your private data.</p>
+
+                <!-- PRIVACY HIGHLIGHT BOX -->
+                <div class="bg-indigo-50 p-6 rounded-xl border-l-4 border-indigo-600 mb-8 text-slate-700 shadow-sm">
+                    <h3 class="text-xl font-bold text-slate-900 mb-2"><i class="fa-solid fa-shield-halved text-indigo-600 mr-2"></i> 100% Safe, Secure & Private</h3>
+                    <p class="text-base">Your privacy is our utmost priority. While other online platforms upload your personal pictures to remote servers for processing, <strong>at ImageReducers.com, all processing happens entirely within your browser (offline).</strong> Your confidential photos, ID cards, and official documents are never uploaded to any external database on the internet. This tool is super-fast and edits your images securely in seconds.</p>
+                </div>
 
                 <!-- SEO Image -->
                 <div class="w-full h-64 md:h-96 rounded-2xl overflow-hidden mb-8 shadow-md">
-                    <img src="https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?auto=format&fit=crop&w=1200&q=80" alt="Image Optimization and Resizing Dashboard" class="w-full h-full object-cover">
+                    <img src="https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?auto=format&fit=crop&w=1200&q=80" alt="Professional Image Resizer and Online Image Reducer Dashboard" class="w-full h-full object-cover">
                 </div>
                 
-                <h3 class="text-2xl font-bold text-slate-900 mt-8 mb-4"><i class="fa-solid fa-compress text-indigo-600 mr-2"></i> Reduce Image Size in KB (MB to KB Converter)</h3>
-                <p class="mb-4 text-lg">High-resolution phone cameras aur DSLRs bohat bari files (MBs mein) generate karte hain. In heavy pictures ko website par lagane se speed slow hoti hai aur form portals inko reject kar dete hain.</p>
+                <h3 class="text-2xl font-bold text-slate-900 mt-8 mb-4"><i class="fa-solid fa-compress text-indigo-600 mr-2"></i> Why Use an Image Reducer to KB?</h3>
+                <p class="mb-4 text-lg">High-resolution cameras and modern smartphones generate massive files. By utilizing our seamless <strong>image reducer in mb</strong>, you can instantly shrink heavy megabytes down to lightweight kilobytes. Having a properly <strong>reduced image in 50 kb</strong> is essential for multiple reasons:</p>
                 <ul class="list-disc pl-6 mb-6 space-y-2 text-lg">
-                    <li><strong class="text-slate-800">SEO & Web Performance:</strong> Search engines like Google aur Bing fast websites ko pasand karte hain. Apni images ko KB mein compress karke apni website ko rank karwayen.</li>
-                    <li><strong class="text-slate-800">Easy Form Uploads:</strong> Kisi bhi admission form ya job portal par error se bachne ke liye image ko 20kb se 50kb ke darmiyan compress karein.</li>
-                    <li><strong class="text-slate-800">Storage Optimization:</strong> Apni hard drive aur mobile ki memory bachane ke liye bhari JPEGs aur PNGs ko compress karein.</li>
+                    <li><strong class="text-slate-800">Strict Portal Requirements:</strong> Many university admission systems and government portals strictly require an <strong>image in 50kb</strong> or even an <strong>image reducer to 200kb</strong> to process applications successfully.</li>
+                    <li><strong class="text-slate-800">Website Speed & SEO:</strong> Search engines like Google prioritize fast-loading websites. By utilizing an <strong>image resizer online</strong>, webmasters can significantly improve their Core Web Vitals.</li>
+                    <li><strong class="text-slate-800">Storage Optimization:</strong> Easily optimize local hard drive storage by converting heavy PNGs into highly compressed JPEGs without losing visible quality.</li>
                 </ul>
 
-                <h3 class="text-2xl font-bold text-slate-900 mt-8 mb-4"><i class="fa-solid fa-expand text-indigo-600 mr-2"></i> How to INCREASE Image Size? (Choti photo ko bara karein)</h3>
-                <p class="mb-4 text-lg">Sirf size kam hi nahi, is tool ki madad se aap image ka size <strong class="text-slate-800">barha (Increase)</strong> bhi sakte hain! Aksar portals ki requirement hoti hai ke image kam az kam 500KB ki ho. Agar aapki image 244KB ki hai, toh usko bara kaise karein?</p>
+                <h3 class="text-2xl font-bold text-slate-900 mt-8 mb-4"><i class="fa-solid fa-expand text-indigo-600 mr-2"></i> Beyond Reducing: Free Quality Increaser</h3>
+                <p class="mb-4 text-lg">Users frequently search for an efficient <strong>free quiilty increser</strong> when an online form rejects a file for being *too small*. Our comprehensive <strong>image resizer</strong> handles this effortlessly. If your file is only 24KB but a platform demands a minimum of 300KB, simply upload your photo, push the compression slider to 100%, and slightly increase the pixel dimensions. Our tool will instantly act as an image expander, allowing you to bypass strict portal minimums securely.</p>
+                
                 <div class="bg-slate-50 p-6 rounded-xl border-l-4 border-indigo-600 mb-6 text-slate-700 shadow-sm">
-                    <strong class="text-slate-900">Tariqa (Steps to Increase Size):</strong> 
-                    Tool mein apni picture upload karein. <strong>Compression Level ke slider ko 100% par set kar dein.</strong> Ya phir Dimensions (Width aur Height) mein numbers barha dein. Aap dekhenge ke Live Preview mein New Size (jaise 624 KB) original se zyada ho jayega! Phir easily download par click kar lein.
+                    <strong class="text-slate-900">Pro Tip for Quick Conversion:</strong> 
+                    To get an accurate <strong>image in 50kb convert</strong> without distortion, do not drop the slider to zero. First, reduce the Width (e.g., to 600px), keep the quality at 80%, and select the precise format you need (JPG or WebP).
                 </div>
 
                 <!-- FOREIGN SEO SECTION -->
@@ -263,21 +278,66 @@
                     </div>
                 </div>
 
-                <h3 class="text-2xl font-bold text-slate-900 mt-10 mb-4">How to Use This Tool? (Istamal Karne Ka Tariqa)</h3>
-                <ol class="list-decimal pl-6 mb-8 space-y-3 text-lg font-medium text-slate-700">
-                    <li><strong>Select Image:</strong> Upar diye gaye box mein apni image ko drag & drop karein ya 'Select Image' button par click karein.</li>
-                    <li><strong>Resize Dimensions:</strong> Zaroorat ke mutabiq Width (Chorai) aur Height (Lumbai) change karein.</li>
-                    <li><strong>Adjust Compression:</strong> File size ko KB mein set karne ke liye slider ko aage peeche karein. Slider left karne se size kam hoga, right karne se barhega.</li>
-                    <li><strong>Rotate (Ghumayen):</strong> Agar photo ulti upload ho gayi hai toh rotate buttons se usay seedha karein.</li>
-                    <li><strong>Download:</strong> Akhir mein JPG, PNG, ya WebP format select kar ke apne device mein save kar lein.</li>
-                </ol>
+                <!-- NEW FAQ SECTION -->
+                <h3 class="text-2xl font-bold text-slate-900 mt-12 mb-6 border-t border-slate-200 pt-8"><i class="fa-solid fa-circle-question text-indigo-600 mr-2"></i> Frequently Asked Questions (FAQs)</h3>
+                <div class="space-y-6">
+                    <div>
+                        <h4 class="font-bold text-slate-900 text-lg">1. Image kaise resize karein? (How to resize image online)</h4>
+                        <p class="text-slate-700 mt-1">Apni photo ko resize karna bohat asaan hai. Just upload your image, adjust the Width or Height in the optimization settings, and the tool will automatically scale your picture perfectly while maintaining its quality.</p>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-slate-900 text-lg">2. How to get a reduced image in 50 KB or 100 KB?</h4>
+                        <p class="text-slate-700 mt-1">To get a perfectly reduced image in 50 KB, upload the photo and simply slide the compression level to the left. Keep an eye on the "New Size" live preview until it hits your target KB, then hit the download button.</p>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-slate-900 text-lg">3. Can I use this tool as a free quality increaser?</h4>
+                        <p class="text-slate-700 mt-1">Yes! If an online form requires a larger file size (e.g., minimum 300KB), you can upload your small photo, move the compression slider to 100%, and increase the pixel dimensions to expand the file size safely.</p>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-slate-900 text-lg">4. Is my personal data and ID card safe here?</h4>
+                        <p class="text-slate-700 mt-1">Absolutely. Our free image resizer operates completely offline in your browser. Your confidential documents and photos are never uploaded to our servers, ensuring 100% privacy and security.</p>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-slate-900 text-lg">5. Does this image reducer work on mobile devices?</h4>
+                        <p class="text-slate-700 mt-1">Yes, our tool is fully optimized for all mobile phones and tablets. You can easily compress and resize photos directly from your iPhone or Android browser without installing any extra applications.</p>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-slate-900 text-lg">6. What image formats can I download?</h4>
+                        <p class="text-slate-700 mt-1">You can export your optimized images in standard JPG/JPEG, high-quality PNG, or next-gen WebP format for superior web performance and smaller file sizes.</p>
+                    </div>
+                </div>
 
-                <h3 class="text-2xl font-bold text-slate-900 mt-10 mb-4"><i class="fa-solid fa-shield-halved text-green-500 mr-2"></i> 100% Safe, Secure & Private</h3>
-                <p class="mb-4 text-lg">Aapki privacy sab se ahem hai. Dusre online tools aapki personal pictures ko apne server par upload karte hain, lekin <strong class="text-slate-800">ImageReducers.com par saara kaam aapke apne browser (offline) mein hota hai.</strong> Aapki koi bhi photo, ID card, ya document internet par kisi server par upload nahi hota. Yeh tool super-fast hai aur bina internet speed lagaye seconds mein image edit kar deta hai.</p>
             </article>
         </div>
 
-        <!-- ==================== 2. ABOUT US VIEW ==================== -->
+        <!-- ==================== 2. HOW TO USE VIEW ==================== -->
+        <div id="howto" class="view-section">
+            <div class="bg-white p-8 md:p-12 rounded-2xl shadow-sm border border-slate-200 max-w-4xl mx-auto">
+                <h1 class="text-3xl font-extrabold text-slate-900 mb-8"><i class="fa-solid fa-book-open text-indigo-600 mr-2"></i> How to Use (Quality Kaise Bachayein?)</h1>
+                <div class="prose text-slate-600 text-lg space-y-6">
+                    <p>Agar aap apni photo ka size <strong>50KB ya 100KB</strong> tak lana chahte hain aur chahte hain ke photo bilkul saaf (clear) rahe aur phate nahi, toh in asaan steps ko follow karein:</p>
+
+                    <div class="bg-indigo-50 p-6 rounded-xl border-l-4 border-indigo-600 mb-8 text-slate-700 shadow-sm">
+                        <h3 class="text-xl font-bold text-slate-900 mb-2">The Golden Rule for Perfect Quality:</h3>
+                        <p class="text-base">Bohot se log image ka size kam karne ke liye sirf <strong>Compression Slider</strong> ko zero par le aate hain, jis se photo ke rang kharab ho jate hain aur wo blur ho jati hai (pixelated). <strong>The Right Way is:</strong></p>
+                        <ol class="list-decimal pl-6 mt-3 space-y-2 text-base font-semibold text-slate-800">
+                            <li>Upload your image using the upload box.</li>
+                            <li>If the image resolution is very high (jaise 3000x4000 pixels), lower the <strong>Width (px)</strong> box to <strong>600px or 800px</strong> first.</li>
+                            <li>Leave the compression slider around <strong>70% or 80%</strong>. Your image will remain completely clear, and the file size will drop below 50KB instantly!</li>
+                        </ol>
+                    </div>
+
+                    <h3 class="text-2xl font-bold text-slate-900 mt-8">Simple Steps:</h3>
+                    <ul class="list-disc pl-6 space-y-2 text-lg text-slate-700">
+                        <li><strong>Step 1:</strong> Select or drag and drop your image.</li>
+                        <li><strong>Step 2:</strong> Adjust dimensions and check the "New Size" in the Live Preview.</li>
+                        <li><strong>Step 3:</strong> Click the "Download Image" button.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== 3. ABOUT US VIEW ==================== -->
         <div id="about" class="view-section">
             <div class="bg-white p-8 md:p-12 rounded-2xl shadow-sm border border-slate-200 max-w-4xl mx-auto">
                 <h1 class="text-3xl font-extrabold text-slate-900 mb-8">About Us</h1>
@@ -289,7 +349,7 @@
             </div>
         </div>
 
-        <!-- ==================== 3. CONTACT US VIEW ==================== -->
+        <!-- ==================== 4. CONTACT US VIEW ==================== -->
         <div id="contact" class="view-section">
             <div class="bg-white p-8 md:p-12 rounded-2xl shadow-sm border border-slate-200 max-w-4xl mx-auto">
                 <h1 class="text-3xl font-extrabold text-slate-900 mb-6">Contact Us</h1>
@@ -306,7 +366,7 @@
             </div>
         </div>
 
-        <!-- ==================== 4. PRIVACY POLICY VIEW (EXPANDED) ==================== -->
+        <!-- ==================== 5. PRIVACY POLICY VIEW ==================== -->
         <div id="privacy" class="view-section">
             <div class="bg-white p-8 md:p-12 rounded-2xl shadow-sm border border-slate-200 prose max-w-4xl mx-auto text-slate-600">
                 <h1 class="text-3xl font-extrabold text-slate-900 mb-6">Privacy Policy</h1>
@@ -347,7 +407,7 @@
             </div>
         </div>
 
-        <!-- ==================== 5. TERMS & CONDITIONS VIEW ==================== -->
+        <!-- ==================== 6. TERMS & CONDITIONS VIEW ==================== -->
         <div id="terms" class="view-section">
             <div class="bg-white p-8 md:p-12 rounded-2xl shadow-sm border border-slate-200 prose max-w-4xl mx-auto text-slate-600">
                 <h1 class="text-3xl font-extrabold text-slate-900 mb-6">Terms & Conditions</h1>
@@ -359,7 +419,7 @@
             </div>
         </div>
 
-        <!-- ==================== 6. DISCLAIMER VIEW ==================== -->
+        <!-- ==================== 7. DISCLAIMER VIEW ==================== -->
         <div id="disclaimer" class="view-section">
             <div class="bg-white p-8 md:p-12 rounded-2xl shadow-sm border border-slate-200 prose max-w-4xl mx-auto text-slate-600">
                 <h1 class="text-3xl font-extrabold text-slate-900 mb-6">Disclaimer</h1>
@@ -370,7 +430,7 @@
         
     </main>
 
-    <!-- Footer with all 5 AdSense Pillar Pages & Logo -->
+    <!-- Footer with all Pillar Pages & Logo -->
     <footer class="bg-white border-t border-slate-200 py-10 mt-auto">
         <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-6 text-slate-500 text-sm">
             <div class="flex items-center gap-3">
@@ -379,6 +439,7 @@
                 <p class="font-semibold text-slate-700 text-base">&copy; 2026 ImageReducers.com - All rights reserved.</p>
             </div>
             <div class="flex flex-wrap justify-center gap-6">
+                <button onclick="switchTab('howto');" class="hover:text-indigo-600 font-semibold transition-colors focus:outline-none">How to Use</button>
                 <button onclick="switchTab('about');" class="hover:text-indigo-600 font-semibold transition-colors focus:outline-none">About Us</button>
                 <button onclick="switchTab('contact');" class="hover:text-indigo-600 font-semibold transition-colors focus:outline-none">Contact Us</button>
                 <button onclick="switchTab('privacy');" class="hover:text-indigo-600 font-semibold transition-colors focus:outline-none">Privacy Policy</button>
@@ -402,7 +463,7 @@
 
     <!-- JavaScript Logic -->
     <script>
-        // NAVIGATION FIX: Completely decoupled from window.event to prevent browser compatibility issues
+        // NAVIGATION FIX
         function switchTab(tabId) {
             // Hide all views
             document.querySelectorAll('.view-section').forEach(el => el.classList.remove('view-active'));
@@ -445,6 +506,7 @@
         const heightInput = document.getElementById('heightInput');
         const qualityInput = document.getElementById('qualityInput');
         const qualityVal = document.getElementById('qualityVal');
+        const lowQualityWarning = document.getElementById('lowQualityWarning');
         const formatSelect = document.getElementById('formatSelect');
         const aspectRatioLock = document.getElementById('aspectRatioLock');
         const rotateLeftBtn = document.getElementById('rotateLeftBtn');
@@ -461,7 +523,7 @@
         let rotationAngle = 0;
         let processTimeout;
 
-        // Make the entire box clickable, preventing issues with child elements blocking clicks
+        // Make the entire box clickable
         uploadArea.addEventListener('click', (e) => { 
             e.stopPropagation();
             fileInput.click(); 
@@ -510,6 +572,7 @@
             heightInput.value = originalImage.height;
             qualityInput.value = 80;
             qualityVal.textContent = 80;
+            lowQualityWarning.classList.add('hidden');
             uploadArea.classList.add('hidden');
             editorArea.classList.remove('hidden');
             processImage();
@@ -529,8 +592,18 @@
             if (aspectRatioLock.checked && heightInput.value) widthInput.value = Math.round(heightInput.value * originalRatio);
             debouncedProcessImage();
         });
+        
         qualityInput.addEventListener('input', () => { 
-            qualityVal.textContent = qualityInput.value; 
+            const q = parseInt(qualityInput.value);
+            qualityVal.textContent = q; 
+            
+            // Show dynamic warning if quality drops below 40%
+            if (q < 40) {
+                lowQualityWarning.classList.remove('hidden');
+            } else {
+                lowQualityWarning.classList.add('hidden');
+            }
+
             debouncedProcessImage(); 
         });
         
